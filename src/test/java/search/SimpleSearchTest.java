@@ -1,5 +1,6 @@
 package search;
 
+import java.util.List;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,6 +18,13 @@ public class SimpleSearchTest {
         driver.get("http://testfasttrackit.info/selenium-test/");
         
         driver.findElement(By.id("search")).sendKeys("vase"+ Keys.ENTER );
+        
+        List<WebElement> productName = driver.findElements(By.cssSelector("h2.product-name a"));
+        
+        System.out.println(productName.toString());
+        //driver.findElement(By.xpath("//div[@class='product-info' and ./descendant::*[text()='Herald Glass Vase']]//button[@title='Add to Cart']")).click();
+        
+        
         
         
     }
