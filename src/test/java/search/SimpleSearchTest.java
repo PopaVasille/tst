@@ -9,22 +9,28 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.Keys;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.containsString;
+import org.openqa.selenium.support.PageFactory;
 import romaniaup.selenium.test.AppConfig;
+import webview.Header;
+import webview.ProductsGrid;
 
 
 public class SimpleSearchTest extends TestBase {
     @Test 
     public void simpleSearchWithOneKeyword(){
         
-        driver.get(AppConfig.getSiteUrl());
+        openHomepage();
         
-        driver.findElement(By.id("search")).sendKeys("vase"+ Keys.ENTER );
+        String searchKeyword = "vase";
+        Header header = PageFactory.initElements(driver, Header.class);
         
-        List<WebElement> productNames = driver.findElements(By.cssSelector("h2.product-name a"));
+        header.search(searchKeyword);
         
-        System.out.println("Am stocat "+productNames.size() + " produse.");
+        ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
         
-        for(WebElement productName : productNames){
+        System.out.println("Am stocat "+productsGrid.getProductNames().size() + " produse.");
+        
+        for(WebElement productName : productsGrid.getProductNames()){
             assertThat("ceva nu e bine",productName.getText(),containsString("VASE"));
         
             

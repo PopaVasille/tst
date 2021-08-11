@@ -1,13 +1,11 @@
 package search;
 
-
-
-
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import romaniaup.selenium.test.AppConfig;
+import romaniaup.selenium.test.DriverFactory;
 
 
 public class TestBase {
@@ -15,11 +13,15 @@ public class TestBase {
     
     @Before
     public void setup(){
-        System.setProperty("webdriver.chrome.driver",AppConfig.getChromeDriverPath());
-        driver = new ChromeDriver();
+        String browser =System.getProperty("browser", "chrome");
+        driver = DriverFactory.getDriver(browser);
     }
     @After
     public void tearDown(){
         driver.quit();
+    }
+    
+    public void openHomepage(){
+        driver.get(AppConfig.getSiteUrl());
     }
 }
